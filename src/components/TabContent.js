@@ -118,9 +118,8 @@ const REACT_API_URL_DESA = "https://emergencia24horas.oceanicadeseguros.com/node
   //////////////////////////////////////////////
   const [value, setValue] = useState({
     fecha_desde: strfechadesde,
-    // fecha_desde: "20/10/2020",
-    fecha_hasta: strfechahasta
-    // cCodMoneda: "DL"
+    fecha_hasta: strfechahasta,
+     cCodMoneda: "DL"
   });
   const [cotizaciones, setCotizaciones] = useState([]);
   const [isLoad, setIsLoad] = useState(false);
