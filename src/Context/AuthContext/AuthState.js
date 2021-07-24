@@ -16,7 +16,7 @@ const AuthState = (props) => {
       user
     );
     await sessionStorage.setItem("DATA_DASH", JSON.stringify(res.data));     
-    setUserAuth(JSON.parse(sessionStorage.getItem("DATA_DASH")).user.PORTAL_USERNAME);
+    setUserAuth(JSON.parse(sessionStorage.getItem("DATA_DASH"))?.user?.PORTAL_USERNAME);
     setIsLoaded(true);
     console.log(res);
   };
@@ -24,7 +24,7 @@ const AuthState = (props) => {
   useEffect(() => {
     if (JSON.parse(sessionStorage.getItem("DATA_DASH"))) {
       setUserAuth(
-        JSON.parse(sessionStorage.getItem("DATA_DASH")).user.PORTAL_USERNAME
+        JSON.parse(sessionStorage.getItem("DATA_DASH")).user?.PORTAL_USERNAME
       );
       setIsLoaded(true);
     }

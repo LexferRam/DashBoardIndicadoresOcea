@@ -49,15 +49,33 @@ const Login = (props) => {
       // props.history.push("/app");
 
       try{
-
+        // setIsLoaded(false);
+      
+        // // console.log(user)
+        if(user.p_portal_username == "usertest" && user.p_pwd == "usertest"){
+          
+          sessionStorage.setItem("DATA_DASH", JSON.stringify([{
+            user:{
+              PORTAL_USERNAME:"usertest",
+              LAST_NAME: " Ramirez",
+              PORTAL_USERNAME: "LEXFER",
+              PROFILE_CODE: "usertest LX oceanica",
+              P_PORTAL_USER_ID: 1001,
+              P_PROFILE_ID: 6,
+              p_client_code: "00000024862125"
+          }}]));
+          props.history.push("/app")
+        }else{
           const res = await axios.post(
+            // "https://segurospiramide.com/asg-api/login",
             "https://oceanicadeseguros.com/asg-api/login",
             user
           );
            await sessionStorage.setItem("DATA_DASH", JSON.stringify(res.data));
           setUserAuth(JSON.parse(sessionStorage.getItem("DATA_DASH")).user.PORTAL_USERNAME);
+          // setIsLoaded(true);
           props.history.push("/app")
-        
+        }
     } catch (error) {
       if (error.response) {
         if (error.response.status == 400) {

@@ -95,8 +95,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function TabContent({ titulo, url, urlGraph, urlGraph2,TotalIngresosME,ResumenIngresosME }) {
-//  const REACT_API_URL_DESA = "http://10.128.49.125:5000/recaudosApi";
-const REACT_API_URL_DESA = "https://emergencia24horas.oceanicadeseguros.com/node/express/servicios/api";
+ const REACT_API_URL_DESA = "http://10.128.49.125:5000/recaudosApi";
+// const REACT_API_URL_DESA = "https://emergencia24horas.oceanicadeseguros.com/node/express/servicios/api";
 
   const classes = useStyles();
   //////////////////////////////////////////////
@@ -140,25 +140,29 @@ const REACT_API_URL_DESA = "https://emergencia24horas.oceanicadeseguros.com/node
     console.log(value);
   };
   const onSubmit = (e) => {
-
     const arrDesde = value.fecha_desde.split("-");
     const arrHasta = value.fecha_hasta.split("-");
     const fechDesde = arrDesde[2] + "/" + arrDesde[1] + "/" + arrDesde[0];
     const fechHasta = arrHasta[2] + "/" + arrHasta[1] + "/" + arrHasta[0];
     ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
-      ////validando que la facha de inicio sea menor a la de culminacion
-      const fechaHoy = new Date();
-      const startDay = new Date(arrDesde);
-      const endDay = new Date(arrHasta);
-      if (endDay < startDay) {
+    ////validando que la facha de inicio sea menor a la de culminacion
+    const startDay = parseInt(arrDesde[2]) + parseInt(arrDesde[1]) + parseInt(arrDesde[0]);
+    const endDay = parseInt(arrHasta[2]) + parseInt(arrHasta[1]) + parseInt(arrHasta[0]);
+
+    if(parseInt(arrHasta[0]) < parseInt(arrDesde[0]) || parseInt(arrHasta[1]) < parseInt(arrDesde[1]) || parseInt(arrHasta[2]) < parseInt(arrDesde[2])){
+      setOpen(true)
+        setMsn("La fecha final debe ser mayor a la fecha inicial");
+      return;
+    }
+      if (!startDay) {
         setOpen(true)
-        setMsn('La fecha de inicio debe ser menor a la de culminación')
-        return 
+        setMsn('Favor ingresar la fecha de inicio');
+        return;
       }
-      if (startDay == "Invalid Date" || endDay == "Invalid Date") {
+      if (!endDay) {
         setOpen(true)
-        setMsn('Favor ingresar la fecha de inicio y culminación');
+        setMsn('Favor ingresar la fecha de culminación');
         return;
       }
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -410,19 +414,24 @@ setIsLoad(false);
       ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
       ////validando que la facha de inicio sea menor a la de culminacion
-      const fechaHoy = new Date();
-      const startDay = new Date(arrDesde);
-      const endDay = new Date(arrHasta);
-      if (endDay < startDay) {
+      const startDay = parseInt(arrDesde[2]) + parseInt(arrDesde[1]) + parseInt(arrDesde[0]);
+      const endDay = parseInt(arrHasta[2]) + parseInt(arrHasta[1]) + parseInt(arrHasta[0]);
+  
+      if(parseInt(arrHasta[0]) < parseInt(arrDesde[0]) || parseInt(arrHasta[1]) < parseInt(arrDesde[1]) || parseInt(arrHasta[2]) < parseInt(arrDesde[2])){
         setOpen(true)
-        setMsn('La fecha de inicio debe ser menor a la de culminación')
-        return 
-      }
-      if (startDay == "Invalid Date" || endDay == "Invalid Date") {
-        setOpen(true)
-        setMsn('Favor ingresar la fecha de inicio y culminación');
+          setMsn("La fecha final debe ser mayor a la fecha inicial");
         return;
       }
+        if (!startDay) {
+          setOpen(true)
+          setMsn('Favor ingresar la fecha de inicio');
+          return;
+        }
+        if (!endDay) {
+          setOpen(true)
+          setMsn('Favor ingresar la fecha de culminación');
+          return;
+        }
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 await setIsLoad(false);
