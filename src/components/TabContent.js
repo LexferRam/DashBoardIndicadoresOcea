@@ -150,7 +150,21 @@ const REACT_API_URL_DESA = "https://emergencia24horas.oceanicadeseguros.com/node
     const startDay = parseInt(arrDesde[2]) + parseInt(arrDesde[1]) + parseInt(arrDesde[0]);
     const endDay = parseInt(arrHasta[2]) + parseInt(arrHasta[1]) + parseInt(arrHasta[0]);
 
-    if(parseInt(arrHasta[0]) < parseInt(arrDesde[0]) || parseInt(arrHasta[1]) < parseInt(arrDesde[1]) || parseInt(arrHasta[2]) < parseInt(arrDesde[2])){
+    if(
+      parseInt(arrHasta[0]) < parseInt(arrDesde[0]) || 
+      parseInt(arrHasta[1]) < parseInt(arrDesde[1]) 
+      // || 
+      // parseInt(arrHasta[2]) < parseInt(arrDesde[2])
+      ){
+      setOpen(true)
+        setMsn("La fecha final debe ser mayor a la fecha inicial");
+      return;
+    }
+    if(
+      parseInt(arrHasta[0]) == parseInt(arrDesde[0]) && 
+      parseInt(arrHasta[1]) == parseInt(arrDesde[1]) &&
+      parseInt(arrHasta[2]) < parseInt(arrDesde[2])
+      ){
       setOpen(true)
         setMsn("La fecha final debe ser mayor a la fecha inicial");
       return;
@@ -381,8 +395,12 @@ setIsLoad(false);
         } catch (error) {
               if (!isMounted) return;
               if (axios.isCancel(error)) console.log(error);
+              if (error.request) {
+                setOpen(true);
+                setMsn("ERROR conectando con el servidor")
+                return error.request
+              }
               else console.log(error);
-              console.log(error)
         }
       
       }
@@ -417,7 +435,21 @@ setIsLoad(false);
       const startDay = parseInt(arrDesde[2]) + parseInt(arrDesde[1]) + parseInt(arrDesde[0]);
       const endDay = parseInt(arrHasta[2]) + parseInt(arrHasta[1]) + parseInt(arrHasta[0]);
   
-      if(parseInt(arrHasta[0]) < parseInt(arrDesde[0]) || parseInt(arrHasta[1]) < parseInt(arrDesde[1]) || parseInt(arrHasta[2]) < parseInt(arrDesde[2])){
+      if(
+        parseInt(arrHasta[0]) < parseInt(arrDesde[0]) || 
+        parseInt(arrHasta[1]) < parseInt(arrDesde[1]) 
+        // || 
+        // parseInt(arrHasta[2]) < parseInt(arrDesde[2])
+        ){
+        setOpen(true)
+          setMsn("La fecha final debe ser mayor a la fecha inicial");
+        return;
+      }
+      if(
+        parseInt(arrHasta[0]) == parseInt(arrDesde[0]) && 
+        parseInt(arrHasta[1]) == parseInt(arrDesde[1]) &&
+        parseInt(arrHasta[2]) < parseInt(arrDesde[2])
+        ){
         setOpen(true)
           setMsn("La fecha final debe ser mayor a la fecha inicial");
         return;
